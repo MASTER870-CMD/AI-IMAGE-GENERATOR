@@ -1,0 +1,252 @@
+ <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Text-to-Image Generator</title>
+<style>
+    body {
+        background: linear-gradient(145deg, #000, #111);
+        color: cyan;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        background: #111;
+        border: 2px solid cyan;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        width: 320px;
+        box-shadow: 0 0 20px cyan;
+    }
+    input, button {
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+    }
+    button {
+        background: cyan;
+        color: black;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    button:hover {
+        background: #00ffffaa;
+    }
+    img {
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 10px;
+        display: none;
+    }
+    .loader {
+        display: none;
+        color: lime;
+    }
+    .error {
+        color: red;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>AI Text-to-Image Generator</h2>
+    <input type="text" id="prompt" placeholder="Enter your prompt...">
+    <button onclick="generateImage()">Generate</button>
+    <div class="loader" id="loader">Generating...</div>
+    <img id="resultImg" alt="Generated Image">
+    <div class="error" id="error"></div>
+</div>
+
+<script>
+const API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
+const API_KEY = "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"; // Your key
+
+async function generateImage() {
+    const prompt = document.getElementById("prompt").value;
+    const loader = document.getElementById("loader");
+    const img = document.getElementById("resultImg");
+    const errorBox = document.getElementById("error");
+
+    img.style.display = "none";
+    loader.style.display = "block";
+    errorBox.textContent = "";
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${API_KEY}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ inputs: prompt })
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const blob = await response.blob();
+        const imageUrl = URL.createObjectURL(blob);
+        img.src = imageUrl;
+        img.style.display = "block";
+    } catch (err) {
+        errorBox.textContent = "Error: " + err.message;
+    } finally {
+        loader.style.display = "none";
+    }
+}
+</script>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->
+
+
+ 
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Text-to-Image Generator</title>
+<style>
+    body {
+        background: linear-gradient(145deg, #000, #111);
+        color: cyan;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        background: #111;
+        border: 2px solid cyan;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        width: 320px;
+        box-shadow: 0 0 20px cyan;
+    }
+    input, button {
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+    }
+    button {
+        background: cyan;
+        color: black;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    button:hover {
+        background: #00ffffaa;
+    }
+    img {
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 10px;
+        display: none;
+    }
+    .loader {
+        display: none;
+        color: lime;
+    }
+    .error {
+        color: red;
+    }
+    #downloadBtn {
+        display: none;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>AI Text-to-Image Generator</h2>
+    <input type="text" id="prompt" placeholder="Enter your prompt...">
+    <button onclick="generateImage()">Generate</button>
+    <div class="loader" id="loader">Generating...</div>
+    <img id="resultImg" alt="Generated Image">
+    <button id="downloadBtn" onclick="downloadImage()">Download Image</button>
+    <div class="error" id="error"></div>
+</div>
+
+<script>
+const API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
+const API_KEY = "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"; //This is a demo key [not working] {Past Your key}
+
+async function generateImage() {
+    const prompt = document.getElementById("prompt").value;
+    const loader = document.getElementById("loader");
+    const img = document.getElementById("resultImg");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const errorBox = document.getElementById("error");
+
+    img.style.display = "none";
+    downloadBtn.style.display = "none";
+    loader.style.display = "block";
+    errorBox.textContent = "";
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${API_KEY}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ inputs: prompt })
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const blob = await response.blob();
+        const imageUrl = URL.createObjectURL(blob);
+        img.src = imageUrl;
+        img.style.display = "block";
+        downloadBtn.style.display = "inline-block";
+    } catch (err) {
+        errorBox.textContent = "Error: " + err.message;
+    } finally {
+        loader.style.display = "none";
+    }
+}
+
+function downloadImage() {
+    const img = document.getElementById("resultImg");
+    const link = document.createElement("a");
+    link.href = img.src;
+    link.download = "generated-image.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
+</body>
+</html>
